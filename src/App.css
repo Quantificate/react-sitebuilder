@@ -20,3 +20,19 @@
 .App-link {
   color: #09d3ac;
 }
+
+.container {
+  text-align:center;
+}
+
+button {
+  margin: 20px;
+}
+
+p, label, h2 {
+  font-family: monospace;
+}
+
+p, label {
+  font-size: 16px;
+}

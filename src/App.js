@@ -114,17 +114,19 @@ class App extends Component{
   render(){
     return(
       <>
-      <h2>Select a Customer, a Site Style, and Input the Keyterm Content Here, then hit "Submit &amp; Generate" to create the customer's Site</h2>
-      <Button variant="primary" onClick={this.returnData}>Submit Content and Generate Pages</Button><br />
-      <CustomerSelector customers={this.state.customers} callback={this.customerCallback}/>
-      <p>Selected Customer: {this.state.selectedCustomer.fullname}</p>
-      <StyleSelector callback={this.styleCallback} />
-      <p>Selected Style: {this.state.style}</p>
-      <ColorSelector callback={this.colorCallback} />
-      <p>Select Color: {this.state.color}</p>
-      {this.state.selectedCustomer !== '' &&
-        <Content customer={this.state.selectedCustomer} customerTerms={this.state.selectedTerms} callback={this.contentCallback} />
-      }
+      <div className="container">
+        <h2>Select a Customer, a Site Style, and Input the Keyterm Content Here, then hit "Submit &amp; Generate" to create the customer's Site</h2>
+        <Button variant="primary" onClick={this.returnData}>Submit Content and Generate Pages</Button><br />
+        <CustomerSelector customers={this.state.customers} callback={this.customerCallback}/>
+        <p>Selected Customer: {this.state.selectedCustomer.fullname}</p>
+        <StyleSelector callback={this.styleCallback} />
+        <p>Selected Style: {this.state.style}</p>
+        <ColorSelector callback={this.colorCallback} />
+        <p>Select Color: {this.state.color}</p>
+        {this.state.selectedCustomer !== '' &&
+          <Content customer={this.state.selectedCustomer} customerTerms={this.state.selectedTerms} callback={this.contentCallback} />
+        }
+      </div>
       </>
     )
   }

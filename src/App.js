@@ -4,6 +4,7 @@ import './App.css';
 import CustomerSelector from './CustomerSelector';
 import StyleSelector from './StyleSelector';
 import Content from './Content';
+import ColorSelector from './ColorPicker';
 
 class App extends Component{
   constructor(props,context){
@@ -14,13 +15,15 @@ class App extends Component{
     this.styleCallback = this.styleCallback.bind(this);
     this.contentCallback = this.contentCallback.bind(this);
     this.returnData = this.returnData.bind(this);
+    this.colorCallback = this.colorCallback.bind(this);
 
     this.state = {
       customers: [],
       customerTerms: [],
       selectedCustomer: [],
       selectedTerms: [],
-      style: ''
+      style: '',
+      color: ''
     }
   }
 
@@ -71,15 +74,21 @@ class App extends Component{
       )
   }
 
+  colorCallback(color){
+    this.setState({color:color});
+  }
+
   returnData(){
     let y=0;
     let z = 0;
     let terms = [];
+    let cleanTerms = [];
     let pkg = {};
     for (z in this.state.selectedTerms){
       if(this.state.selectedTerms[z] !== this.state.selectedCustomer.username && this.state.selectedTerms[z] !== this.state.selectedCustomer.fullname && this.state.selectedTerms[z] !== this.state.selectedCustomer.package && this.state.selectedTerms[z] !== null){
         let termKey = this.state.selectedTerms[z].toLowerCase().replace(/\s/g, "");
         pkg[termKey] = this.state[termKey];
+        cleanTerms.push(termKey);
         terms.push(this.state.selectedTerms[z]);
       }
     }
@@ -88,7 +97,9 @@ class App extends Component{
       pkg[custKeys[y]] = this.state.selectedCustomer[custKeys[y]];
     }
     pkg.terms = terms;
+    pkg.cleanTerms = cleanTerms;
     pkg.style = this.state.style;
+    pkg.color = this.state.color;
     console.log(pkg);
     fetch('/builder', {
       method: 'POST',
@@ -109,6 +120,8 @@ class App extends Component{
       <p>Selected Customer: {this.state.selectedCustomer.fullname}</p>
       <StyleSelector callback={this.styleCallback} />
       <p>Selected Style: {this.state.style}</p>
+      <ColorSelector callback={this.colorCallback} />
+      <p>Select Color: {this.state.color}</p>
       {this.state.selectedCustomer !== '' &&
         <Content customer={this.state.selectedCustomer} customerTerms={this.state.selectedTerms} callback={this.contentCallback} />
       }

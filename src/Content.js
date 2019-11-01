@@ -10,7 +10,6 @@ class Content extends Component{
   }
 
   handleContent(e){
-    const value = e.target.value;
     let name = e.target.name;
     name = name.toLowerCase().replace(/\s/g, "");
     this.props.callback(name, e.target.value);

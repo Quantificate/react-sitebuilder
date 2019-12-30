@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import {Form} from 'react-bootstrap';
 
-class StyleSelector extends Component{
+class TypeSelector extends Component{
   constructor(props,context){
     super(props,context)
 
-    this.handleStyle = this.handleStyle.bind(this);
+    this.handleType = this.handleType.bind(this);
 
   }
 
-  handleStyle(e){
+  handleType(e){
     this.props.callback(e.target.value);
   }
 
   render(){
     return(
       <>
-      <Form.Label>Select a Style:</Form.Label>
-      <Form.Control as="select" onChange={this.handleStyle}>
+      <Form.Label>Select a Type:</Form.Label>
+      <Form.Control as="select" onChange={this.handleType}>
         <option>Pick one:</option>
-        <option>Sales</option>
+        <option>Kangen</option>
         <option>Real Estate</option>
+        <option>Cash Gifting</option>
+        <option>MLM</option>
       </Form.Control>
       </>
     )
     }
   }
-export default StyleSelector;
+export default TypeSelector;

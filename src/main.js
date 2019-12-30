@@ -75,7 +75,7 @@ function nameMaker(kts){
 	return ktout;
 }
 
-function genericMLM(fnames, dir, company, url, email, phone, newurl, content, headers, color){
+function newStyle(fnames, dir, company, url, email, phone, newurl, content, headers, color, name, externals, bio){
 	let j=0;
 	let k = 0;
 	let links = ``;
@@ -92,1637 +92,13 @@ function genericMLM(fnames, dir, company, url, email, phone, newurl, content, he
 			.split(' ')
 			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
 			.join(' ');
-		let link = '				<li><a href="/' + fnames[k] + '">' + text + '</a></li>';
-		links = links + "\n" + link;
-	}
-  let indexfile = dir + 'index.html';
-  let cssfile = dir + 'index.css';
-	fs.appendFile(
-		indexfile,
-		`<!DOCTYPE html>
-		<html>
-		  <head>
-			<title>` + company + `</title>
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-			<link href="index.css" rel="stylesheet" type="text/css">
-		  </head>
-		  <body>
-      <header>
-        <div id="hat">
-          <div id="lefthat">
-            <ul>
-              <li id="notdrop"><a href="tel:` + phone + `">` + phone + `</a></li>
-              <li id="notdrop"><a href="mailto:` + email + `">` + email + `</a></li>
-            </ul>
-          </div>
-          <div id="righthat">
-            <ul>
-              <li id="drop"><a href="https://www.facebook.com/">Facebook</a></li>
-              <li id="drop"><a href="https://www.twitter.com">Twitter</a></li>
-              <li id="drop"><a href="https://www.instagram.com/">Instagram</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="collar">
-          <h1>` + company + `</h1>
-        </div>
-        <div id="necklace">
-          <ul>
-            <li><a href="/" id="navlink">Home</a></li>
-            <li>
-              <div id="oppsdrop">
-                <span>Business Opportunities</span>
-                <div id="oppdropdown">
-                  <ul>
-                    <li><a href="` + url + `">Opportunity</a></li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div id="condrop">
-                <span>Contact</span>
-                <div id="condropdown">
-                  <ul>
-                    <li><a href="tel:` + phone + `">` + phone + `</a></li>
-                    <li><a href="mailto:` + email + `">Email Me</a></li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </header>
-      <div class="slideshow-container">
-
-        <!-- Full-width images with number and caption text -->
-        <div class="mySlides fade">
-          <img src="/static/slide1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-          <img src="/static/slide2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-          <img src="/static/slide3.jpg" style="width:100%">
-        </div>
+		let link = `    <div class="card">
+      <div class="card-body">
+        <a href="` + fnames[k] + `"><h6 class="card-title">` + text + `</h6></a>
+        <p class="card-text"><!-- Blurb goes here --></p>
       </div>
-      <br>
-			<div id="contentarea">
-			  <div id="infobox">
-				<div id="logo">
-				  <img src="/static/logo.png" alt="` + company + ` Logo" />
-				</div>
-				<div id="infoform">
-				  <form action="javascript: sendData()">
-					<div>
-					  <label for="name">Name:</label>
-					  <input type="text" id="name" name="name">
-					</div>
-					<div>
-					  <label for="mail">E-mail:</label>
-					  <input type="email" id="mail" name="mail">
-					</div>
-					<div>
-					  <label for="address">Phone #:</label>
-					  <input type="text" id="address" name="address">
-					</div>
-					<div>
-					  <label for="message">Message:</label>
-					  <input type="textbox" id="message" name="message">
-					</div>
-					<div class="button">
-					  <button type="submit">Find Out More!</button>
-					</div>
-				  </form>
-				  <div id="buttonbox">
-					<a href="` + url + `"><div id="button"><h3>Click Here for More Info!</h3></div></a>
-				  </div>
-				</div>
-			  </div>
-			  <div id="linkbox">
-				<ul>`
-				  + links +
-				`</ul>
-			  </div>
-			  <div id="relinks">
-				<ul>
-				  <li><a href="https://www.homebusinessmag.com">Home Business</a></li>
-				  <li><a href="https://www.smallbiztrends.com">Small Business Trends</a></li>
-				  <li><a href="https://www.entrepreneur.com">Entrepreneur</a></li>
-				</ul>
-				<h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</a></h6>
-			  </div>
-			</div>
-		  <script src="https://smtpjs.com/v3/smtp.js"></script>
-		  <script>
-			function sendData(){
-			  let nameVal = document.getElementById("name").value;
-			  let mailVal = document.getElementById("mail").value;
-			  let addVal = document.getElementById("address").value;
-			  let msgVal = document.getElementById("message").value;
-			  Email.send({
-				Host: "smtp.gmail.com",
-				Username: "1stpgemail@gmail.com",
-				Password: "Yeswewill@1",
-				To: "yeswewill111@gmail.com, ` + email + `",
-				From: mailVal,
-				Subject: "Info Request from ` + newurl + `",
-				Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
-			  }).then(
-				message => alert(message)
-			  );
-
-			};
-			</script>
-		  </body>
-		</html>`,
-		function(err){
-			if (err) throw err;
-			console.log(dir + "index.html created!");
-		}
-	);
-	fs.appendFile(cssfile,
+    </div>
     `
-
-    * {box-sizing:border-box;}
-
-    html, body {
-      margin:0;
-      background:#eeeeee;
-    }
-
-    h1, h2, h3, h4, h5, h6, p, li, a {
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    ul {
-      list-style:none;
-    }
-
-    i {
-      width:inherit;
-      height:inherit;
-    }
-
-    a {
-      text-decoration:none;
-      color:#000000;
-    }
-
-    a:hover {
-      color:` + color + `;
-    }
-
-    #hat {
-      width:70%;
-      margin:auto;
-    }
-
-    #lefthat {
-      float:left;
-      width:60%;
-    }
-
-    #lefthat li {
-      display:inline;
-      float:left;
-      margin-right:10px;
-    }
-
-    #lefthat li a {
-      font-size:16px;
-    }
-
-    #drop {
-      text-decoration:none;
-      background:url('/static/drop.png');
-      background-size:cover;
-      background-position:center;
-      width:40px;
-      height:60px;
-      text-align:center;
-    }
-
-    #lefthat #drop a i {
-      font-size:16px;
-      color:#ffffff;
-      margin:26px 2px 0px 0px;
-    }
-
-    #righthat #drop a i {
-      font-size:16px;
-      color:#ffffff;
-      margin:26px 0px 0px 1px;
-    }
-
-    #drop a i:hover {
-      color:skyblue !important;
-    }
-
-    #righthat {
-      float:right;
-      width:30%;
-    }
-
-    #righthat li {
-      display:inline;
-      float:right;
-      width:auto;
-      margin-left:15px;
-    }
-
-    #collar {
-      clear:both;
-      text-align:center;
-      background:` + color + `;
-      color:#eeeeee;
-      height:50px;
-    }
-
-    #necklace {
-      text-align:center;
-      background:` + color + `;
-      margin-top:-16px;
-      height:30px;
-    }
-
-    #necklace li {
-      display:inline;
-      margin:10px 30px 10px 0px;
-    }
-
-    #necklace li a {
-      color:#eeeeee;
-      font-weight:bold;
-    }
-
-    #necklace li a:hover {
-      color:skyblue;
-      font-weight:bold;
-    }
-
-    #contentarea {
-      width:80%;
-      height:auto;
-      background:#eeeeee;
-      margin:auto;
-      padding-top:10px;
-    }
-
-    #contentarea2 {
-      width:80%;
-      height:auto;
-      background:#eeeeee;
-      margin:auto;
-      margin-top:10px;
-      padding-top:10px;
-    }
-
-    #contentbox {
-      width:80%;
-      float:left;
-    }
-
-    #contentbox2 {
-      width:70%;
-      margin:0px 0px 0px 25px;;
-      float:left;
-    }
-
-    #contentbox2 li {
-      list-style:disc;
-    }
-
-    #buttonbox {
-      width:100%;
-      height: 100px;
-      margin-top:15px;
-    }
-
-    #button {
-      width:140%;
-      height:75px;
-      margin:auto;
-      text-align:center;
-      background:` + color + `;
-      border:#000000 1px solid;
-      border-radius:10px;
-      color:#ffffff;
-      text-shadow:#000000 1px 1px 3px;
-      box-shadow:#000000 2px 2px 5px;
-    }
-
-    #button:hover {
-      background:#eeeeee;
-      color:` + color + `;
-    }
-
-    #infobox {
-      float:right;
-      max-width:125px;
-    }
-
-    #logo {
-      max-width:150px;
-      margin:auto;
-    }
-
-    #logo img {
-      width:175px;
-      margin:auto;
-      border:#000000 1px solid;
-      border-radius:5px;
-    }
-
-    #infoform button {
-      margin-top:10px;
-      font-family:'Open Sans', sans-serif;
-    }
-
-    #linkbox {
-      width:60%;
-      margin: 75px auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #linkbox2 {
-      width:60%;
-      margin:75px auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks {
-      width:60%;
-      margin:auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-
-    }
-
-    #relinks2 {
-      width:60%;
-      margin:auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks2 ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks2 li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-      border: none !important;
-    }
-
-    #relinks2 li a {
-      font-size:16px !important;
-    }
-
-    #linkbox ul:first-child {
-      border:none;
-    }
-
-    #linkbox ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #linkbox li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox li a {
-      font-size:10px;
-    }
-
-    #linkbox2 ul:first-child {
-      border:none;
-    }
-
-    #linkbox2 ul {
-      height:12px;
-      width:100%;
-      margin:75px 0px;
-    }
-
-    #linkbox2 li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox2 li a {
-      font-size:10px;
-    }
-
-    #link1 {
-      border:none !important;
-    }
-
-    /* Dropdowns */
-
-    #necklace span {
-      color:#eeeeee;
-      font-weight:bold;
-    }
-
-    #necklace span:hover {
-      color:skyblue;
-      font-weight:bold;
-    }
-
-    #oppsdrop, #prodrop, #condrop {
-      position:relative;
-      display:inline-block;
-    }
-
-    #oppdropdown, #prodropdown, #condropdown {
-      display:none;
-      position:absolute;
-      background-color:#f9f9f9;
-      min-width: 250px;
-      box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
-      padding: 12px 16px;
-      z-index:1;
-      border-radius:5px;
-    }
-
-    #oppdropdown ul, #prodropdown ul, #condropdown ul {
-      padding-inline-start:0px;
-    }
-
-    #oppsdrop:hover #oppdropdown, #prodrop:hover #prodropdown, #condrop:hover #condropdown {
-      display:block;
-    }
-
-    #condropdown li {
-      display:block;
-    }
-
-    #condropdown li i {
-      margin-right:10px;
-    }
-
-    #oppsdrop li, #prodrop li, #condrop li {
-      margin:5px 0px;
-      display:block;
-      width: 100%;
-      padding:0;
-    }
-
-    #oppsdrop li a, #prodrop li a, #condrop li a {
-      color:#000000;
-    }
-
-    /* Slideshow container */
-    .slideshow-container {
-      width: 100%;
-      height:600px;
-      position: relative;
-      margin: auto;
-    }
-
-    .mySlides img {
-      max-height:600px;
-    }
-
-    /* Hide the images by default */
-    .mySlides {
-      display: none;
-    }
-
-    /* Next & previous buttons */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      margin-top: -22px;
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
-
-    /* Caption text */
-    .text {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-
-    /* The dots/bullets/indicators */
-    .dot {
-      cursor: pointer;
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-
-    .active, .dot:hover {
-      background-color: #717171;
-    }
-
-    /* Fading animation */
-    .fade {
-      -webkit-animation-name: fade;
-      -webkit-animation-duration: 1.5s;
-      animation-name: fade;
-      animation-duration: 1.5s;
-    }
-
-    @-webkit-keyframes fade {
-      from {opacity: .4}
-      to {opacity: 1}
-    }
-
-    @keyframes fade {
-      from {opacity: .4}
-      to {opacity: 1}
-    }
-
-    @media screen and (max-width:1400px){
-      #linkbox {
-        margin-bottom:100px !important;
-      }
-
-      #relinks h6 {
-        margin-top:50px;
-      }
-    }
-
-    @media only screen and (max-width:990px){
-      .slideshow-container {
-        display:none;
-      }
-
-      .dot {display:none;}
-
-      #lefthat {
-        display:none;
-      }
-
-      #righthat {
-        width:100%;
-      }
-
-      #righthat #drop a i {
-        font-size:28px;
-        margin-top:30px;
-      }
-
-      #drop {
-        width:60px;
-        height:80px;
-      }
-
-      #collar {height:75px;}
-      #collar h1 {font-size:48px;}
-      #necklace {height:50px;}
-      #necklace a {font-size:32px;}
-      #necklace span {font-size:32px;}
-      #button {width:100%;}
-      #relinks {margin-top:110px;}
-      #linkbox {margin-top:150px;}
-      #relinks h6 {margin-top:50px;}
-    }
-    `,
-    function(err){
-			if (err) throw err;
-			console.log(dir + "index.css created!");
-		}
-	);
-
-	for (j in fnames){
-		let path = dir + fnames[j];
-		fs.appendFile(path,
-      `
-      <!DOCTYPE html>
-  		<html>
-  		  <head>
-  			<title>` + company + `</title>
-  			<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-  			<link href="index.css" rel="stylesheet" type="text/css">
-  		  </head>
-  		  <body>
-        <header>
-          <div id="hat">
-            <div id="lefthat">
-              <ul>
-                <li id="notdrop"><a href="tel:` + phone + `">` + phone + `</a></li>
-                <li id="notdrop"><a href="mailto:` + email + `">` + email + `</a></li>
-              </ul>
-            </div>
-            <div id="righthat">
-              <ul>
-                <li id="drop"><a href="https://www.facebook.com/">Facebook</a></li>
-                <li id="drop"><a href="https://www.twitter.com">Twitter</a></li>
-                <li id="drop"><a href="https://www.instagram.com/">Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-          <div id="collar">
-            <h1>` + company + `</h1>
-          </div>
-          <div id="necklace">
-            <ul>
-              <li><a href="/" id="navlink">Home</a></li>
-              <li>
-                <div id="oppsdrop">
-                  <span>Business Opportunities</span>
-                  <div id="oppdropdown">
-                    <ul>
-                      <li><a href="` + url + `">Opportunity</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div id="condrop">
-                  <span>Contact</span>
-                  <div id="condropdown">
-                    <ul>
-                      <li><a href="tel:` + phone + `">` + phone + `</a></li>
-                      <li><a href="mailto:` + email + `">Email Me</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
-  			<div id="contentarea">
-          <div id="contentarea">
-            <h1>` + headers[j] + `</h1>
-            <p>` + content[j] + `</p>
-  			  <div id="infobox">
-  				<div id="logo">
-  				  <img src="/static/logo.png" alt="` + company + ` Logo" />
-  				</div>
-  				<div id="infoform">
-  				  <form action="javascript: sendData()">
-  					<div>
-  					  <label for="name">Name:</label>
-  					  <input type="text" id="name" name="name">
-  					</div>
-  					<div>
-  					  <label for="mail">E-mail:</label>
-  					  <input type="email" id="mail" name="mail">
-  					</div>
-  					<div>
-  					  <label for="address">Phone #:</label>
-  					  <input type="text" id="address" name="address">
-  					</div>
-  					<div>
-  					  <label for="message">Message:</label>
-  					  <input type="textbox" id="message" name="message">
-  					</div>
-  					<div class="button">
-  					  <button type="submit">Find Out More!</button>
-  					</div>
-  				  </form>
-  				  <div id="buttonbox">
-  					<a href="` + url + `"><div id="button"><h3>Click Here for More Info!</h3></div></a>
-  				  </div>
-  				</div>
-  			  </div>
-  			  <div id="linkbox">
-  				<ul>`
-  				  + links +
-  				`</ul>
-  			  </div>
-  			  <div id="relinks">
-    				<ul>
-    				  <li><a href="https://www.homebusinessmag.com">Home Business</a></li>
-    				  <li><a href="https://www.smallbiztrends.com">Small Business Trends</a></li>
-    				  <li><a href="https://www.entrepreneur.com">Entrepreneur</a></li>
-    				</ul>
-    				<h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</a></h6>
-  			  </div>
-  			</div>
-  		  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  		  <script>
-  			function sendData(){
-  			  let nameVal = document.getElementById("name").value;
-  			  let mailVal = document.getElementById("mail").value;
-  			  let addVal = document.getElementById("address").value;
-  			  let msgVal = document.getElementById("message").value;
-  			  Email.send({
-  				Host: "smtp.gmail.com",
-  				Username: "1stpgemail@gmail.com",
-  				Password: "Yeswewill@1",
-  				To: "yeswewill111@gmail.com, ` + email + `",
-  				From: mailVal,
-  				Subject: "Info Request from ` + newurl + `",
-  				Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
-  			  }).then(
-  				message => alert(message)
-  			  );
-
-  			};
-  			</script>
-  		  </body>
-  		</html>
-      `,
-      function(err){
-			if (err) throw err;
-		});
-		console.log(path + " created!");
-	}
-}
-
-function kangen(fnames, dir, company, url, email, phone, newurl, content, headers, color){
-	let j=0;
-	let k = 0;
-	let links = ``;
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-  }
-  if (!fs.existsSync(dir + 'static/')){
-    fs.mkdirSync(dir + 'static/');
-  }
-	for (k in fnames){
-		let revkt = fnames[k].split('-').join(' ');
-		revkt = revkt.replace('.html','');
-		let text = revkt.toLowerCase()
-			.split(' ')
-			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-			.join(' ');
-		let link = '				<li><a href="/' + fnames[k] + '">' + text + '</a></li>';
-		links = links + "\n" + link;
-	}
-  let indexfile = dir + 'index.html';
-  let cssfile = dir + 'index.css';
-	fs.appendFile(
-		indexfile,
-		`<!DOCTYPE html>
-		<html>
-		  <head>
-			<title>` + company + `</title>
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-			<link href="index.css" rel="stylesheet" type="text/css">
-		  </head>
-		  <body>
-      <header>
-        <div id="hat">
-          <div id="lefthat">
-            <ul>
-              <li id="notdrop"><a href="tel:` + phone + `">` + phone + `</a></li>
-              <li id="notdrop"><a href="mailto:` + email + `">` + email + `</a></li>
-            </ul>
-          </div>
-          <div id="righthat">
-            <ul>
-              <li id="drop"><a href="https://www.facebook.com/">Facebook</a></li>
-              <li id="drop"><a href="https://www.twitter.com">Twitter</a></li>
-              <li id="drop"><a href="https://www.instagram.com/">Instagram</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="collar">
-          <h1>` + company + `</h1>
-        </div>
-        <div id="necklace">
-          <ul>
-            <li><a href="/" id="navlink">Home</a></li>
-            <li>
-              <div id="oppsdrop">
-                <span>Business Opportunities</span>
-                <div id="oppdropdown">
-                  <ul>
-                    <li><a href="` + url + `">Opportunity</a></li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div id="condrop">
-                <span>Contact</span>
-                <div id="condropdown">
-                  <ul>
-                    <li><a href="tel:` + phone + `">` + phone + `</a></li>
-                    <li><a href="mailto:` + email + `">Email Me</a></li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </header>
-      <div class="slideshow-container">
-
-        <!-- Full-width images with number and caption text -->
-        <div class="mySlides fade">
-          <img src="/static/slide1.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-          <img src="/static/slide2.jpg" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-          <img src="/static/slide3.jpg" style="width:100%">
-        </div>
-      </div>
-      <br>
-			<div id="contentarea">
-			  <div id="infobox">
-				<div id="logo">
-				  <img src="/static/logo.png" alt="` + company + ` Logo" />
-				</div>
-				<div id="infoform">
-				  <form action="javascript: sendData()">
-					<div>
-					  <label for="name">Name:</label>
-					  <input type="text" id="name" name="name">
-					</div>
-					<div>
-					  <label for="mail">E-mail:</label>
-					  <input type="email" id="mail" name="mail">
-					</div>
-					<div>
-					  <label for="address">Phone #:</label>
-					  <input type="text" id="address" name="address">
-					</div>
-					<div>
-					  <label for="message">Message:</label>
-					  <input type="textbox" id="message" name="message">
-					</div>
-					<div class="button">
-					  <button type="submit">Find Out More!</button>
-					</div>
-				  </form>
-				  <div id="buttonbox">
-					<a href="` + url + `"><div id="button"><h3>Click Here for More Info!</h3></div></a>
-				  </div>
-				</div>
-			  </div>
-			  <div id="linkbox">
-				<ul>`
-				  + links +
-				`</ul>
-			  </div>
-			  <div id="relinks">
-				<ul>
-				  <li><a href="https://www.homebusinessmag.com">Home Business</a></li>
-				  <li><a href="https://www.smallbiztrends.com">Small Business Trends</a></li>
-				  <li><a href="https://www.entrepreneur.com">Entrepreneur</a></li>
-				</ul>
-				<h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</a></h6>
-			  </div>
-			</div>
-		  <script src="https://smtpjs.com/v3/smtp.js"></script>
-		  <script>
-			function sendData(){
-			  let nameVal = document.getElementById("name").value;
-			  let mailVal = document.getElementById("mail").value;
-			  let addVal = document.getElementById("address").value;
-			  let msgVal = document.getElementById("message").value;
-			  Email.send({
-				Host: "smtp.gmail.com",
-				Username: "1stpgemail@gmail.com",
-				Password: "Yeswewill@1",
-				To: "yeswewill111@gmail.com, ` + email + `",
-				From: mailVal,
-				Subject: "Info Request from ` + newurl + `",
-				Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
-			  }).then(
-				message => alert(message)
-			  );
-
-			};
-			</script>
-		  </body>
-		</html>`,
-		function(err){
-			if (err) throw err;
-			console.log(dir + "index.html created!");
-		}
-	);
-	fs.appendFile(cssfile,
-    `
-
-    * {box-sizing:border-box;}
-
-    html, body {
-      margin:0;
-      background:#eeeeee;
-    }
-
-    h1, h2, h3, h4, h5, h6, p, li, a {
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    ul {
-      list-style:none;
-    }
-
-    i {
-      width:inherit;
-      height:inherit;
-    }
-
-    a {
-      text-decoration:none;
-      color:#000000;
-    }
-
-    a:hover {
-      color:` + color + `;
-    }
-
-    #hat {
-      width:70%;
-      margin:auto;
-    }
-
-    #lefthat {
-      float:left;
-      width:60%;
-    }
-
-    #lefthat li {
-      display:inline;
-      float:left;
-      margin-right:10px;
-    }
-
-    #lefthat li a {
-      font-size:16px;
-    }
-
-    #drop {
-      text-decoration:none;
-      background:url('/static/drop.png');
-      background-size:cover;
-      background-position:center;
-      width:40px;
-      height:60px;
-      text-align:center;
-    }
-
-    #lefthat #drop a i {
-      font-size:16px;
-      color:#ffffff;
-      margin:26px 2px 0px 0px;
-    }
-
-    #righthat #drop a i {
-      font-size:16px;
-      color:#ffffff;
-      margin:26px 0px 0px 1px;
-    }
-
-    #drop a i:hover {
-      color:skyblue !important;
-    }
-
-    #righthat {
-      float:right;
-      width:30%;
-    }
-
-    #righthat li {
-      display:inline;
-      float:right;
-      width:auto;
-      margin-left:15px;
-    }
-
-    #collar {
-      clear:both;
-      text-align:center;
-      background:` + color + `;
-      color:#eeeeee;
-      height:50px;
-    }
-
-    #necklace {
-      text-align:center;
-      background:` + color + `;
-      margin-top:-16px;
-      height:30px;
-    }
-
-    #necklace li {
-      display:inline;
-      margin:10px 30px 10px 0px;
-    }
-
-    #necklace li a {
-      color:#eeeeee;
-      font-weight:bold;
-    }
-
-    #necklace li a:hover {
-      color:skyblue;
-      font-weight:bold;
-    }
-
-    #contentarea {
-      width:80%;
-      height:auto;
-      background:#eeeeee;
-      margin:auto;
-      padding-top:10px;
-    }
-
-    #contentarea2 {
-      width:80%;
-      height:auto;
-      background:#eeeeee;
-      margin:auto;
-      margin-top:10px;
-      padding-top:10px;
-    }
-
-    #contentbox {
-      width:80%;
-      float:left;
-    }
-
-    #contentbox2 {
-      width:70%;
-      margin:0px 0px 0px 25px;;
-      float:left;
-    }
-
-    #contentbox2 li {
-      list-style:disc;
-    }
-
-    #buttonbox {
-      width:100%;
-      height: 100px;
-      margin-top:15px;
-    }
-
-    #button {
-      width:140%;
-      height:75px;
-      margin:auto;
-      text-align:center;
-      background:` + color + `;
-      border:#000000 1px solid;
-      border-radius:10px;
-      color:#ffffff;
-      text-shadow:#000000 1px 1px 3px;
-      box-shadow:#000000 2px 2px 5px;
-    }
-
-    #button:hover {
-      background:#eeeeee;
-      color:` + color + `;
-    }
-
-    #infobox {
-      float:right;
-      max-width:125px;
-    }
-
-    #logo {
-      max-width:150px;
-      margin:auto;
-    }
-
-    #logo img {
-      width:175px;
-      margin:auto;
-      border:#000000 1px solid;
-      border-radius:5px;
-    }
-
-    #infoform button {
-      margin-top:10px;
-      font-family:'Open Sans', sans-serif;
-    }
-
-    #linkbox {
-      width:60%;
-      margin: 75px auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #linkbox2 {
-      width:60%;
-      margin:75px auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks {
-      width:60%;
-      margin:auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-
-    }
-
-    #relinks2 {
-      width:60%;
-      margin:auto;
-      text-align:center;
-      clear:both;
-    }
-
-    #relinks2 ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks2 li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-      border: none !important;
-    }
-
-    #relinks2 li a {
-      font-size:16px !important;
-    }
-
-    #linkbox ul:first-child {
-      border:none;
-    }
-
-    #linkbox ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #linkbox li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox li a {
-      font-size:10px;
-    }
-
-    #linkbox2 ul:first-child {
-      border:none;
-    }
-
-    #linkbox2 ul {
-      height:12px;
-      width:100%;
-      margin:75px 0px;
-    }
-
-    #linkbox2 li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox2 li a {
-      font-size:10px;
-    }
-
-    #link1 {
-      border:none !important;
-    }
-
-    /* Dropdowns */
-
-    #necklace span {
-      color:#eeeeee;
-      font-weight:bold;
-    }
-
-    #necklace span:hover {
-      color:skyblue;
-      font-weight:bold;
-    }
-
-    #oppsdrop, #prodrop, #condrop {
-      position:relative;
-      display:inline-block;
-    }
-
-    #oppdropdown, #prodropdown, #condropdown {
-      display:none;
-      position:absolute;
-      background-color:#f9f9f9;
-      min-width: 250px;
-      box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
-      padding: 12px 16px;
-      z-index:1;
-      border-radius:5px;
-    }
-
-    #oppdropdown ul, #prodropdown ul, #condropdown ul {
-      padding-inline-start:0px;
-    }
-
-    #oppsdrop:hover #oppdropdown, #prodrop:hover #prodropdown, #condrop:hover #condropdown {
-      display:block;
-    }
-
-    #condropdown li {
-      display:block;
-    }
-
-    #condropdown li i {
-      margin-right:10px;
-    }
-
-    #oppsdrop li, #prodrop li, #condrop li {
-      margin:5px 0px;
-      display:block;
-      width: 100%;
-      padding:0;
-    }
-
-    #oppsdrop li a, #prodrop li a, #condrop li a {
-      color:#000000;
-    }
-
-    /* Slideshow container */
-    .slideshow-container {
-      width: 100%;
-      height:600px;
-      position: relative;
-      margin: auto;
-    }
-
-    .mySlides img {
-      max-height:600px;
-    }
-
-    /* Hide the images by default */
-    .mySlides {
-      display: none;
-    }
-
-    /* Next & previous buttons */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      margin-top: -22px;
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
-
-    /* Caption text */
-    .text {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-
-    /* The dots/bullets/indicators */
-    .dot {
-      cursor: pointer;
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-
-    .active, .dot:hover {
-      background-color: #717171;
-    }
-
-    /* Fading animation */
-    .fade {
-      -webkit-animation-name: fade;
-      -webkit-animation-duration: 1.5s;
-      animation-name: fade;
-      animation-duration: 1.5s;
-    }
-
-    @-webkit-keyframes fade {
-      from {opacity: .4}
-      to {opacity: 1}
-    }
-
-    @keyframes fade {
-      from {opacity: .4}
-      to {opacity: 1}
-    }
-
-    @media screen and (max-width:1400px){
-      #linkbox {
-        margin-bottom:100px !important;
-      }
-
-      #relinks h6 {
-        margin-top:50px;
-      }
-    }
-
-    @media only screen and (max-width:990px){
-      .slideshow-container {
-        display:none;
-      }
-
-      .dot {display:none;}
-
-      #lefthat {
-        display:none;
-      }
-
-      #righthat {
-        width:100%;
-      }
-
-      #righthat #drop a i {
-        font-size:28px;
-        margin-top:30px;
-      }
-
-      #drop {
-        width:60px;
-        height:80px;
-      }
-
-      #collar {height:75px;}
-      #collar h1 {font-size:48px;}
-      #necklace {height:50px;}
-      #necklace a {font-size:32px;}
-      #necklace span {font-size:32px;}
-      #button {width:100%;}
-      #relinks {margin-top:110px;}
-      #linkbox {margin-top:150px;}
-      #relinks h6 {margin-top:50px;}
-    }
-    `,
-    function(err){
-			if (err) throw err;
-			console.log(dir + "index.css created!");
-		}
-	);
-
-	for (j in fnames){
-		let path = dir + fnames[j];
-		fs.appendFile(path,
-      `
-      <!DOCTYPE html>
-  		<html>
-  		  <head>
-  			<title>` + company + ` | ` + headers[j] + `</title>
-  			<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-  			<link href="index.css" rel="stylesheet" type="text/css">
-  		  </head>
-  		  <body>
-        <header>
-          <div id="hat">
-            <div id="lefthat">
-              <ul>
-                <li id="notdrop"><a href="tel:` + phone + `">` + phone + `</a></li>
-                <li id="notdrop"><a href="mailto:` + email + `">` + email + `</a></li>
-              </ul>
-            </div>
-            <div id="righthat">
-              <ul>
-                <li id="drop"><a href="https://www.facebook.com/">Facebook</a></li>
-                <li id="drop"><a href="https://www.twitter.com">Twitter</a></li>
-                <li id="drop"><a href="https://www.instagram.com/">Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-          <div id="collar">
-            <h1>` + company + `</h1>
-          </div>
-          <div id="necklace">
-            <ul>
-              <li><a href="/" id="navlink">Home</a></li>
-              <li>
-                <div id="oppsdrop">
-                  <span>Business Opportunities</span>
-                  <div id="oppdropdown">
-                    <ul>
-                      <li><a href="` + url + `">Opportunity</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div id="condrop">
-                  <span>Contact</span>
-                  <div id="condropdown">
-                    <ul>
-                      <li><a href="tel:` + phone + `">` + phone + `</a></li>
-                      <li><a href="mailto:` + email + `">Email Me</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
-  			<div id="contentarea">
-          <div id="contentarea">
-            <h1>` + headers[j] + `</h1>
-            <p>` + content[j] + `</p>
-  			  <div id="infobox">
-  				<div id="logo">
-  				  <img src="/static/logo.png" alt="` + company + ` Logo" />
-  				</div>
-  				<div id="infoform">
-  				  <form action="javascript: sendData()">
-  					<div>
-  					  <label for="name">Name:</label>
-  					  <input type="text" id="name" name="name">
-  					</div>
-  					<div>
-  					  <label for="mail">E-mail:</label>
-  					  <input type="email" id="mail" name="mail">
-  					</div>
-  					<div>
-  					  <label for="address">Phone #:</label>
-  					  <input type="text" id="address" name="address">
-  					</div>
-  					<div>
-  					  <label for="message">Message:</label>
-  					  <input type="textbox" id="message" name="message">
-  					</div>
-  					<div class="button">
-  					  <button type="submit">Find Out More!</button>
-  					</div>
-  				  </form>
-  				  <div id="buttonbox">
-  					<a href="` + url + `"><div id="button"><h3>Click Here for More Info!</h3></div></a>
-  				  </div>
-  				</div>
-  			  </div>
-  			  <div id="linkbox">
-  				<ul>`
-  				  + links +
-  				`</ul>
-  			  </div>
-  			  <div id="relinks">
-    				<ul>
-    				  <li><a href="https://www.homebusinessmag.com">Home Business</a></li>
-    				  <li><a href="https://www.smallbiztrends.com">Small Business Trends</a></li>
-    				  <li><a href="https://www.entrepreneur.com">Entrepreneur</a></li>
-    				</ul>
-    				<h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</a></h6>
-  			  </div>
-  			</div>
-  		  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  		  <script>
-  			function sendData(){
-  			  let nameVal = document.getElementById("name").value;
-  			  let mailVal = document.getElementById("mail").value;
-  			  let addVal = document.getElementById("address").value;
-  			  let msgVal = document.getElementById("message").value;
-  			  Email.send({
-  				Host: "smtp.gmail.com",
-  				Username: "1stpgemail@gmail.com",
-  				Password: "Yeswewill@1",
-  				To: "yeswewill111@gmail.com, ` + email + `",
-  				From: mailVal,
-  				Subject: "Info Request from ` + newurl + `",
-  				Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
-  			  }).then(
-  				message => alert(message)
-  			  );
-
-  			};
-  			</script>
-  		  </body>
-  		</html>
-      `,
-      function(err){
-			if (err) throw err;
-		});
-		console.log(path + " created!");
-	}
-}
-
-function minRE(fnames, dir, company, url, email, phone, newurl, content, headers, color, name){
-	let j=0;
-	let k = 0;
-	let links = ``;
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-  }
-  if (!fs.existsSync(dir + 'static/')){
-    fs.mkdirSync(dir + 'static/');
-  }
-	for (k in fnames){
-		let revkt = fnames[k].split('-').join(' ');
-		revkt = revkt.replace('.html','');
-		let text = revkt.toLowerCase()
-			.split(' ')
-			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-			.join(' ');
-		let link = '				<li><a href="/' + fnames[k] + '">' + text + '</a></li>';
 		links = links + "\n" + link;
 	}
   let indexfile = dir + 'index.html';
@@ -1731,102 +107,149 @@ function minRE(fnames, dir, company, url, email, phone, newurl, content, headers
   if (color === '#333333'){
     fontcolor = '#eeeeee';
   }
+  let exLinks = [];
+  for (y in externals){
+    exLinks.push(`<li><a href="` + externals[y] + `" target="_blank" rel="noopener noreferrer"><!-- Link Name --></a></li>`)
+  }
+  let niceLinks = ``;
+  for (d in exLinks){
+    niceLinks = niceLinks + exLinks[d] + '\n';
+  }
+  let cleanBio = "<p>" + bio.replace(/(\r\n|\n|\r)/gm, "</p>\n<p>") + "</p>";
+  console.log(cleanBio);
+  console.log(niceLinks);
 	fs.appendFile(
 		indexfile,
 		`
-    <!DOCTYPE html>
-    <html>
+    <!doctype html>
+    <html lang="en">
       <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/index.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Alata|Open+Sans&display=swap" rel="stylesheet">
         <title>` + company + ` | ` + name + `</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-        <link href="index.css" rel="stylesheet" type="text/css">
       </head>
       <body>
         <header>
-          <a href="/" id="logo"><img src="/static/logo.png" alt="` + company + ` Logo" /></a>
-          <img src="/static/customer.jpg" alt="` + name + `" />
-          <div id="menubar">
-            <div id="contacts">
-              <ul>
-                <li>` + name + `:<a href="tel:` + phone + `">` + phone + `</a></li>
-                <li class="socialicon"><a href="https://twitter.com/"><div>Twitter</div></a></li>
-                <li class="socialicon"><a href="https://www.facebook.com/"><div >Facebook</div></a></li>
-                <li class="socialicon"><a href="https://www.instagram.com"><div>Instagram</div></a></li>
-                <li class="socialicon"><a href="https://www.linkedin.com/"><div>LinkedIn</div></a></li>
-                <li class="socialicon"><a href="https://www.pinterest.com"><div>Pinterest</div></a></li>
-                <li class="socialicon"><a href="https://www.youtube.com"><div >YouTube</div></a></li>
-              </ul>
-            </div>
-            <div id="menu">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">Buyers</a></li>
-                <li><a href="/">Sellers</a></li>
-                <li><a href="/">Communities</a></li>
-                <li><a href="/">School Zones</a></li>
-                <li><a href="/">RSS News Feed</a></li>
-              </ul>
+          <div id="wrapper">
+            <div class="container" id="necklace">
+              <div class="row">
+                <div class="col-1" id="logo">
+                  <img src="/static/logo.png" />
+                </div>
+                <div class="col-3" id="name">
+                  <h2>` + company + `</h2>
+                </div>
+                <div class="col-8">
+                  <ul class="nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="` + url + `">Opportunities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="` + url + `">Products</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="tel:` + phone + `">Call Me for Info</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="mailto:` + email + `">Email Me!</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </header>
-        <div id="jumbo">
-          <div id="searchbox">
-            <div id="toprow">
-              <div id="hone">
-                <h1>Get Your Free Home Valuation!</h1>
+        <div class="container" id="centercol">
+          <div class="row">
+            <div class="col-3" id="phrases">
+              ` + links + `
+            </div>
+            <div class="col-7" id="maintext">
+              <h1>` + name + `</h1>
+              <h4>` + company + `</h4>
+              ` + cleanBio + `
+              <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#capform" aria-expanded="false" aria-controls="capform">
+                  Find Out More!
+                </button>
+              </p>
+              <div class="collapse" id="capform">
+                <div class="card card-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="name">Your Name:</label>
+                      <input type="text" class="form-control" id="name" placeholder="Enter Your Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email Address:</label>
+                      <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone Number:</label>
+                      <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
+                    </div>
+                    <div class="form-group">
+                      <label for="message">Message:</label>
+                      <input type="textarea" class="form-control" id="message" placeholder="Put your question/comment here.">
+                    </div>
+                    <button type="submit" class="btn btn-success" onClick="sendData()">Submit</button>
+                  </form>
+                </div>
               </div>
             </div>
-            <div id="midrow">
-              <form action="javascript: sendData()">
-                <div>
-                  <label for="name">Name:</label>
-                  <input type="text" id="name" name="name">
-                </div>
-                <div>
-                  <label for="mail">E-mail:</label>
-                  <input type="email" id="mail" name="mail">
-                </div>
-                <div>
-                  <label for="address">Address:</label>
-                  <input type="text" id="address" name="address">
-                </div>
-                <div>
-                  <label for="message">Message:</label>
-                  <input type="textbox" id="message" name="message">
-                </div>
-                <div class="button">
-                  <button type="submit">Get Your Free Valuation</button>
-                </div>
-              </form>
+            <div class="col-2" id="linklist">
+              <ul id="externals">
+                ` + niceLinks + `
+              </ul>
+              <ul id="related">
+                <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Linkage</a></li>
+                <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Somewhere</a></li>
+                <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Another Link</a></li>
+                <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Something Else</a></li>
+              </ul>
+              <ul id="socials">
+                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><img src="/static/fb.png" class="socialicon" /></a></li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><img src="/static/insta.png" class="socialicon" /></a></li>
+                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><img src="/static/twit.png" class="socialicon" /></a></li>
+                <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><img src="/static/yt.png" class="socialicon" /></a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+        <div class="divider"></div>
+        <div class="container" id="vid">
+          <div class="row">
+            <div class="col-12" id="vidframe">
+              <!-- youtube iframe goes here -->
             </div>
           </div>
         </div>
-        <div id="contentarea">
-          <div id="contentbox">
-            <h1 id="contenttitle">` + name + `</h1>
-            <p>Bio Here</p>
+        <footer>
+          <div class="container">
+            <h5>Powered by <a href="https://the1stpagegroup.com">The First Page Group</a></h5>
           </div>
-          <div id="linkbox">
-            <ul>
-              ` + links + `
-            </ul>
-          </div>
-          <div id="relinks">
-            <ul>
-              <li><a href="https://www.zillow.com/">Zillow</a></li>
-              <li><a href="https://www.realtor.com/realestateagents/">Realtor.com</a></li>
-              <li><a href="/">School Zones</a></li>
-              <li><a href="/">Communities</a></li>
-            </ul>
-            <h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</h6>
-          </div>
-        </div>
+        </footer>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
         <script>
           function sendData(){
             let nameVal = document.getElementById("name").value;
-            let mailVal = document.getElementById("mail").value;
-            let addVal = document.getElementById("address").value;
+            let mailVal = document.getElementById("email").value;
+            let addVal = document.getElementById("phone").value;
             let msgVal = document.getElementById("message").value;
             Email.send({
               Host: "smtp.gmail.com",
@@ -1834,8 +257,8 @@ function minRE(fnames, dir, company, url, email, phone, newurl, content, headers
               Password: "Yeswewill@1",
               To: "yeswewill111@gmail.com, ` + email + `",
               From: mailVal,
-              Subject: "Home Valuation Request from ` + url + `",
-              Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
+              Subject: "Info Request from ` + url + `",
+              Body: "Name: " + nameVal + "   Phone: " + addVal + "    Message: " + msgVal
             }).then(
               message => alert(message)
             );
@@ -1852,462 +275,157 @@ function minRE(fnames, dir, company, url, email, phone, newurl, content, headers
 	fs.appendFile(cssfile,
     `
     html, body {
-      margin: 0;
-      padding: 0;
-      background:#eeeeee;
+        margin:0;
     }
 
-    h1, h2, h3, h4, h5, h6, ul, li, ol, p, a, label {
-      font-family: 'Open Sans', sans-serif;
+    h1, h2, h3 {
+        font-family:'Alata', serif;
     }
 
-    ul {
-      list-style:none;
+    h4, h5, h6, a, p, li {
+        font-family:'Open Sans', sans-serif;
+    }
+
+    ul, li {
+        list-style:none;
     }
 
     a {
-      text-decoration:none;
-      color:#000000;
+        color:#333333;
     }
 
     a:hover {
-      text-decoration:none;
-      color:#333333;
-    }
-
-    header {
-      width:100%;
-      height:80px;
-      background-color:` + color + `;
-      box-shadow: #333333 1px 1px 5px;
-    }
-
-    header > img {
-      max-height: 60px;
-      margin:10px 0px;
-    }
-
-    .contenthead {
-      width:100%;
-      height:80px;
-      background-color:` + color + `;
-      box-shadow: #333333 1px 1px 5px;
-    }
-
-    #logo {
-      height:60px;
-      margin:10px 15px;
-      float:left;
+        color:` + color + `;
     }
 
     #logo img {
-      height:60px;
+        max-height:65px;
+        margin-top:5px;
     }
 
-    #menubar {
-      width:70%;
-      height:75px;
-      float:right;
+    header .container .row {
+        height:150px;
     }
 
-    #contacts {
-      float:right;
-      text-align:right;
-      height:45%;
-      width:60%;
-      margin-right:25px;
+    #name h2 {
+        font-size:20px;
+        margin-top:25px;
+        margin-left:5px
     }
 
-    #contacts ul li {
-      display:inline-block;
-      margin-right:10px;
+    #externals, #related {
+        border-bottom: ` + color + ` 1px solid;
     }
 
-    #contacts ul li a {
-      color:` + fontcolor + `;
+    #externals li, #related li {
+        margin-bottom:20px;
+        margin-left:-15px;
     }
 
-    .socialicon {
-      border-radius:5px;
-      border: ` + color + ` 1px solid;
-      width: auto;
-      height: auto;
-      text-align:center;
-      font-size:14px;
-      padding:5px;
+    #socials li img {
+        max-width:50px;
+        margin-bottom:20px;
+        margin-left:10px;
     }
 
-    .socialicon:hover{
-        background-color:#999999;
+    #socials ul li {
+        display:inline-block;
+        margin-top:50px;
     }
 
-    #menu {
-      float:right;
-      clear:right;
-      height:45%;
+    #upperlinks .nav {
+        margin-top:50px;
     }
 
-    #menu li {
-      display:inline;
-      margin-right:35px;
+    #upperlinks .nav a {
+        font-size:14px;
     }
 
-    #menu li a {
-      font-size:14px;
-      text-transform:uppercase;
-      color:` + fontcolor + `;
+    #maintext img {
+        margin:5px 0 15px;
+        max-width:100%;
     }
 
-    #jumbo {
-      width:100%;
-      height:800px;
-      background-image:url('/static/house.jpg');
-      background-size:cover;
-      background-position:center;
+    #wrapper {
+        width:100%;
+        height:75px;
+        background:` + color + `85;
+        margin-bottom:25px;
     }
 
-    #searchbox {
-      width:50%;
-      height:225px;
-      padding:10px;
-      position: absolute;
-      top:450px;
-      left:500px;
-      background:rgba(0,0,0,0.4);
-      border:#ffffff 1px solid;
-      border-radius:5px;
+    .nav {
+        margin:auto;
+        margin-top:15px;
     }
 
-    #toprow {
-      width:100%;
-      height:30%;
-
+    .nav a {
+        color:#010101;
+        font-weight:bold;
     }
 
-    #hone {
-      width:100%;
-      height:100%;
-      text-align:center;
-      color:` + color + `;
-      font-weight:normal;
-      font-size:22px;
-      margin-top:-20px;
+    .nav a:hover {
+        color:` + color + `;
     }
 
-    #hone h1 {
-      text-shadow:#333333 1px 1px 3px;
+    #contentbox img {
+        max-width:100%;
+        margin:10px 0 25px;
     }
 
-    #options {
-      width:68%;
-      height:70%;
-      float:right;
-      margin-top:15px;
-      margin-right:-25px;
+    .card-body {
+        background:#eeeeee;
+        font-size:14px;
+        line-height:15px;
+        padding:10px;
     }
 
-    #options li {
-      display:inline-block;
-      width:23%;
-      font-size:12px;
-      text-align:center;
-      margin:0;
+    .card-body h6 {
+        font-weight:bold;
+        font-size:14px;
     }
 
-    .itembox {
-      color:#ffffff;
-      background:#274f74;
-      padding:5px;
-      margin:0px;
-      border-left:#eeeeee 1px solid;
-      width:100%;
+    .divider {
+        background: ` + color + `85;
+        height:25px;
+        margin:25px 0px;
+        width:100%;
     }
 
-    .box1 {
-      background:#aaaaaa;
-      border-left:none;
+    #linksvid .col-3 li {
+        margin-bottom:25px;
     }
 
-    #midrow {
-      width:100%;
-      height:60%;
-      margin-top:5px;
+    #linksvid .col-3 li a {
+        font-weight:bold;
     }
 
-    #midrow form {
-      text-align:center;
-      width:30%;
-      margin:auto;
+    footer {
+        width:100%;
+        height:80px;
+        background:#cccccc;
+        padding-top:5px;
+        margin-top:25px;
     }
 
-    #midrow form div {
-      margin-top:5px;
+    footer h5 {
+        margin-top:25px;
     }
 
-    #midrow form input {
-      float:right;
+    @media only screen and (max-width:425px){
+        #wrapper #name {display:none;}
+        #logo {display:none;}
+        #necklace .col-8 {max-width:100% !important; width:100%; flex:0 0 100%;}
+        #necklace .col-8 .nav-item {margin:0 !important;}
+        #necklace .col-8 .nav-item a {margin:0; font-size:12px; line-height:1;}
+        .nav-link {padding:5px 5px 15px;}
+        #linklist {display:none;}
+        #maintext h1 {font-size:24px;}
+        #maintext h4 {font-size:14px;}
+        #maintext p {font-size:12px;}
+        #phrases .card .card-body a h6 {font-size:10px !important;}
+        #phrases .card .card-body p {font-size:10px;}
+        .card-text {display:none;}
     }
-
-    #midrow form label {
-      color:#ffffff;
-      font-weight:bold;
-      text-shadow:#000000 1px 1px 3px;
-    }
-
-    #midrow button {
-      font-family: 'Open Sans', sans-serif;
-      color:#eeeeee;
-      background:` + color + `;
-      border-radius:5px;
-      border:#eeeeee 1px solid;
-      padding:5px;
-    }
-
-    #dropbox {
-      font-size:12px;
-      color:` + color + `;
-      background:#eeeeee;
-      padding:10px 15px 10px 15px;
-      width:175px;
-      text-align:left;
-      margin:10px 5px 0 5px;
-      border-radius:2px;
-    }
-
-    #botright {
-      width:35%;
-      position:absolute;
-      text-align:right;
-      right:70px;
-      bottom:75px;
-      line-height:12px;
-    }
-
-    #botright p {
-      color:#ffffff;
-      text-shadow:#333333 1px 1px;
-      font-size:28px;
-    }
-
-    #stats {
-      font-size:20px !important;
-    }
-
-    #contentarea {
-      width:100%;
-      height:auto;
-      background:#eeeeee;
-      margin-top:-25px;
-      padding-top:10px;
-    }
-
-    #contentarea2 {
-      width:100%;
-      height:auto;
-      background:#eeeeee;
-      margin-top:10px;
-      padding-top:10px;
-    }
-
-    #contentbox {
-      width:60%;
-      margin:auto;
-    }
-
-    #contentbox2 {
-      width:60%;
-      margin:auto;
-    }
-
-    #contentbox2 li {
-      list-style:disc;
-    }
-
-    #linkbox {
-      width:60%;
-      margin:75px auto;
-      text-align:center;
-    }
-
-    #linkbox2 {
-      width:60%;
-      margin:75px auto;
-      text-align:center;
-    }
-
-    #relinks {
-      width:60%;
-      margin:auto;
-      text-align:center;
-    }
-
-    #relinks ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-
-    }
-
-    #relinks2 {
-      width:60%;
-      margin:auto;
-      text-align:center;
-    }
-
-    #relinks2 ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #relinks2 li {
-      display:inline;
-      padding:0 5px 0 5px;
-      text-align:center;
-      border: none !important;
-    }
-
-    #relinks2 li a {
-      font-size:16px !important;
-    }
-
-    #linkbox ul:first-child {
-      border:none;
-    }
-
-    #linkbox ul {
-      height:12px;
-      width:100%;
-      margin:0;
-    }
-
-    #linkbox li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox li a {
-      font-size:10px;
-    }
-
-    #linkbox2 ul:first-child {
-      border:none;
-    }
-
-    #linkbox2 ul {
-      height:12px;
-      width:100%;
-      margin:75px 0px;
-    }
-
-    #linkbox2 li {
-      display:inline;
-      border-left:#000000 1px solid;
-      padding:0 5px 0 5px;
-      text-align:center;
-      height:15px !important;
-    }
-
-    #linkbox2 li a {
-      font-size:10px;
-    }
-
-    #link1 {
-      border:none !important;
-    }
-
-    #formtitle {
-      width:100%;
-    }
-
-    #formtitle #hone {
-      text-align:center;
-      color:#ffffff;
-      text-shadow:none;
-      margin:0;
-    }
-
-    #formed {
-      width:100%;
-      height:60%;
-      margin-top:5px;
-    }
-
-    #formed form {
-      text-align:center;
-      width:30%;
-      margin:auto;
-      background:rgba(0,0,0,0.5);
-      border:#000000 2px solid;
-      padding:10px;
-      border-radius:5px;
-    }
-
-    #formed form div {
-      width:50%;
-      margin:auto;
-      line-height:25px;
-    }
-
-    #formed form input {
-      float:right;
-    }
-
-    #formed form label {
-      color:#ffffff;
-      font-weight:bold;
-    }
-
-    #formed button {
-      font-family: 'Open Sans', sans-serif;
-      color:#ffffff;
-      background:royalblue;
-      border-radius:5px;
-      border:#000000 1px solid;
-      padding:10px;
-      font-weight:bold;
-    }
-
-    #formbox {
-      height:400px;
-      margin-top:-28px;
-      background:url('/static/house.jpg');
-      background-size:cover;
-      background-position:center;
-    }
-
-    /* mobile view fixes */
-    @media only screen and (max-width:992px){
-      #hone h1 {
-        font-size:28px;
-      }
-
-      #contacts {
-        width:60%;
-      }
-
-      #searchbox {
-        height:auto;
-      }
-
-      #searchbox form input {
-        float:none;
-      }
-
-      #linkbox {
-        margin-bottom:110px;
-      }
-    }
-
     `,
     function(err){
 			if (err) throw err;
@@ -2317,69 +435,134 @@ function minRE(fnames, dir, company, url, email, phone, newurl, content, headers
 
 	for (j in fnames){
 		let path = dir + fnames[j];
+    let cleanContent = "<p>" + content[j].replace(/(\r\n|\n|\r)/gm, "</p>\n<p>") + "</p>";
+    console.log(cleanContent);
 		fs.appendFile(path,
       `
-      <!DOCTYPE html>
-      <html>
+      <!doctype html>
+      <html lang="en">
         <head>
-          <title>` + company + ` | ` + name + `</title>
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-          <link href="index.css" rel="stylesheet" type="text/css">
+          <!-- Required meta tags -->
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <!-- Bootstrap CSS -->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          <link rel="stylesheet" href="/static/index.css" type="text/css">
+          <link href="https://fonts.googleapis.com/css?family=Alata|Open+Sans&display=swap" rel="stylesheet">
+          <title>` + company + ` | ` + headers[j] + `</title>
         </head>
         <body>
           <header>
-            <a href="/" id="logo"><img src="/static/logo.png" alt="` + company + ` Logo" /></a>
-            <img src="/static/customer.jpg" alt="` + name + `" />
-            <div id="menubar">
-              <div id="contacts">
-                <ul>
-                  <li>` + name + `:<a href="tel:` + phone + `">` + phone + `</a></li>
-                  <li class="socialicon"><a href="https://twitter.com/"><div>Twitter</div></a></li>
-                  <li class="socialicon"><a href="https://www.facebook.com/"><div >Facebook</div></a></li>
-                  <li class="socialicon"><a href="https://www.instagram.com"><div>Instagram</div></a></li>
-                  <li class="socialicon"><a href="https://www.linkedin.com/"><div>LinkedIn</div></a></li>
-                  <li class="socialicon"><a href="https://www.pinterest.com"><div>Pinterest</div></a></li>
-                  <li class="socialicon"><a href="https://www.youtube.com"><div >YouTube</div></a></li>
-                </ul>
-              </div>
-              <div id="menu">
-                <ul>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/">Buyers</a></li>
-                  <li><a href="/">Sellers</a></li>
-                  <li><a href="/">Communities</a></li>
-                  <li><a href="/">School Zones</a></li>
-                  <li><a href="/">RSS News Feed</a></li>
-                </ul>
+            <div id="wrapper">
+              <div class="container" id="necklace">
+                <div class="row">
+                  <div class="col-1" id="logo">
+                    <img src="/static/logo.png" />
+                  </div>
+                  <div class="col-3" id="name">
+                    <h2>` + company + `</h2>
+                  </div>
+                  <div class="col-8">
+                    <ul class="nav">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="` + url + `">Opportunities</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="` + url + `">Products</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="tel:` + phone + `">Call Me for Info</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="mailto:` + email + `">Email Me!</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </header>
-          <div id="contentarea2">
-            <div id="contentbox2">
-              <h1 id="contenttitle2">` + headers[j] + `</h1>
-              ` + content[j] + `
-            </div>
-            <div id="linkbox2">
-              <ul>
+          <div class="container" id="centercol">
+            <div class="row">
+              <div class="col-3" id="phrases">
                 ` + links + `
-              </ul>
-              <div id="relinks2">
-                <ul>
-                  <li><a href="https://www.zillow.com/profile/">Zillow</a></li>
-                  <li><a href="https://www.realtor.com/realestateagents/">Realtor.com</a></li>
-                  <li><a href="/">School Zones</a></li>
-                  <li><a href="/">Communities</a></li>
-                </ul>
-                <h6>Powered by <a href="http://the1stpagegroup.com">The First Page Group</h6>
               </div>
+              <div class="col-7" id="maintext">
+                <h1>` + headers[j] + `</h1>
+                <h4><!-- Blurb goes here --></h4>
+                ` + cleanContent + `
+                <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#capform" aria-expanded="false" aria-controls="capform">
+                    Find Out More!
+                  </button>
+                </p>
+                <div class="collapse" id="capform">
+                  <div class="card card-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Your Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+                      </div>
+                      <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
+                      </div>
+                      <div class="form-group">
+                        <label for="message">Message:</label>
+                        <input type="textarea" class="form-control" id="message" placeholder="Put your question/comment here.">
+                      </div>
+                      <button type="submit" class="btn btn-success" onClick="sendData()">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2" id="linklist">
+                <ul id="externals">
+                  ` + niceLinks + `
+                </ul>
+                <ul id="related">
+                  <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Linkage</a></li>
+                  <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Somewhere</a></li>
+                  <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Another Link</a></li>
+                  <li><a href="https://google.com" target="_blank" rel="noopener noreferrer">Something Else</a></li>
+                </ul>
+                <ul id="socials">
+                  <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><img src="/static/fb.png" class="socialicon" /></a></li>
+                  <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><img src="/static/insta.png" class="socialicon" /></a></li>
+                  <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><img src="/static/twit.png" class="socialicon" /></a></li>
+                  <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><img src="/static/yt.png" class="socialicon" /></a></li>
+                </ul>
+                <ul id="more">
+                  <li><a href="` + url + `" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary">Learn More</button></a></li>
+                </ul>
             </div>
           </div>
+        </div>
+          <footer>
+            <div class="container">
+              <h5>Powered by <a href="https://the1stpagegroup.com">The First Page Group</a></h5>
+            </div>
+          </footer>
+
+          <!-- Optional JavaScript -->
+          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
           <script src="https://smtpjs.com/v3/smtp.js"></script>
           <script>
             function sendData(){
               let nameVal = document.getElementById("name").value;
-              let mailVal = document.getElementById("mail").value;
-              let addVal = document.getElementById("address").value;
+              let mailVal = document.getElementById("email").value;
+              let addVal = document.getElementById("phone").value;
               let msgVal = document.getElementById("message").value;
               Email.send({
                 Host: "smtp.gmail.com",
@@ -2387,8 +570,414 @@ function minRE(fnames, dir, company, url, email, phone, newurl, content, headers
                 Password: "Yeswewill@1",
                 To: "yeswewill111@gmail.com, ` + email + `",
                 From: mailVal,
-                Subject: "Home Valuation Request from ` + url + `",
-                Body: "Name: " + nameVal + "   Address: " + addVal + "    Message: " + msgVal
+                Subject: "Info Request from ` + newurl + `",
+                Body: "Name: " + nameVal + "   Phone: " + addVal + "    Message: " + msgVal
+              }).then(
+                message => alert(message)
+              );
+            };
+            </script>
+        </body>
+      </html>
+      `,
+      function(err){
+			if (err) throw err;
+		});
+		console.log(path + " created!");
+	}
+}
+
+function realEstate(fnames, dir, company, url, email, phone, newurl, content, headers, color, name, externals, bio){
+	let j=0;
+	let k = 0;
+	let links = ``;
+  let services = ``;
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+  if (!fs.existsSync(dir + 'static/')){
+    fs.mkdirSync(dir + 'static/');
+  }
+	for (k in fnames){
+		let revkt = fnames[k].split('-').join(' ');
+		revkt = revkt.replace('.html','');
+		let text = revkt.toLowerCase()
+			.split(' ')
+			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+			.join(' ');
+		let link = `<a class="dropdown-item" href="/` + fnames[k] + `">` + text + `</a>`;
+    let serviceList = text.split(' ');
+    serviceList.pop();
+    let serviceText = '';
+    for (d in serviceList){
+      serviceText = serviceText + " " + serviceList[d];
+    }
+    let serviceItem = `<li>` + serviceText + `</li>`;
+    services = services + "\n" + serviceItem;
+		links = links + "\n" + link;
+	}
+  let indexfile = dir + 'index.html';
+  let cssfile = dir + 'index.css';
+  let fontcolor = '#000000';
+  if (color === '#333333'){
+    fontcolor = '#eeeeee';
+  }
+  let exLinks = [];
+  for (y in externals){
+    exLinks.push(`<a class="dropdown-item" href="` + externals[y] + `" target="_blank" rel="noreferrer noopener">Link Text Goes Here</a>`)
+  }
+  let niceLinks = ``;
+  for (d in exLinks){
+    niceLinks = niceLinks + exLinks[d] + '\n';
+  }
+  let cleanBio = "<p>" + bio.replace(/(\r\n|\n|\r)/gm, "</p>\n<p>") + "</p>";
+  console.log(cleanBio);
+  console.log(niceLinks);
+	fs.appendFile(
+		indexfile,
+		`
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/static/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Baskervville|Domine&display=swap" rel="stylesheet">
+        <title>` + company + ` | ` + name + `</title>
+      </head>
+      <body>
+        <div id="slider" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="/static/slide1.jpg" alt="" />
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/static/slide2.jpg" alt="" />
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="/static/slide3.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-primary bg-dark">
+          <a class="navbar-brand" href="/"><img src="/static/logo.png" alt="RE Logo" /></a>
+          <button class="navbar-toggler" type="button btn-primary" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
+            <span class="navbar-toggler-icon"><img src="/static/nav.png" alt="Nav Icon" /></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="postsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Blog Posts
+                </a>
+                <div class="dropdown-menu" aria-labelledby="postsDropdown">
+                  ` + links + `
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="externalsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Links
+                </a>
+                <div class="dropdown-menu" aria-labelledby="externalsDropdown">
+                  ` + niceLinks + `
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="tel:` + phone + `">Call for More Info</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="mailto:` + email + `">Email Me!</a>
+              <div class="socials">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://facebook.com"><img src="/static/fb.png" alt="FB Logo" /></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://twitter.com"><img src="/static/twit.png" alt="Twitter Logo" /></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://instagram.com"><img src="/static/insta.png" alt="Instagram Logo" /></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://youtube.com"><img src="/static/yt.png" alt="YT Logo" /></a>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </nav>
+        <div class="container" id="maintext">
+          <div class="row">
+            <div class="col-12">
+              <h1>` + name + `</h1>
+              <h4>` + company + `</h4>
+              ` + bio + `
+              <ul>
+                <li><strong>Services We Provide:</strong></li>
+                 ` + services + `
+              </ul>
+              <p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#capform" aria-expanded="false" aria-controls="capform">
+                Find Out More!
+              </button>
+              </p>
+              <div class="collapse" id="capform">
+                <div class="card card-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="name">Your Name:</label>
+                      <input type="text" class="form-control" id="name" placeholder="Enter Your Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email Address:</label>
+                      <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone Number:</label>
+                      <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
+                    </div>
+                    <div class="form-group">
+                      <label for="message">Message:</label>
+                      <input type="textarea" class="form-control" id="message" placeholder="Put your question/comment here.">
+                    </div>
+                    <button type="submit" class="btn btn-success" onClick="sendData()">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <h6>Powered by <a href="https://the1stpagegroup.com" target="_blank" rel="noreferrer noopener">The 1st Page Group</a></h6>
+        </footer>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script>
+          function sendData(){
+            let nameVal = document.getElementById("name").value;
+            let mailVal = document.getElementById("email").value;
+            let addVal = document.getElementById("phone").value;
+            let msgVal = document.getElementById("message").value;
+            Email.send({
+              Host: "smtp.gmail.com",
+              Username: "1stpgemail@gmail.com",
+              Password: "Yeswewill@1",
+              To: "yeswewill111@gmail.com, ` + email + `",
+              From: mailVal,
+              Subject: "Info Request from ` + newurl + `",
+              Body: "Name: " + nameVal + "   Phone: " + addVal + "    Message: " + msgVal
+            }).then(
+              message => alert(message)
+            );
+          };
+          </script>
+      </body>
+    </html>
+		`,
+		function(err){
+			if (err) throw err;
+			console.log(dir + "index.html created!");
+		}
+	);
+	fs.appendFile(cssfile,
+    `
+    h1, h2, h3 {
+        font-family:'Baskervvile', serif;
+    }
+
+    h4, h5, h6, p, a, li, label, input, button {
+        font-family:'Domine', serif;
+    }
+
+    #slider {
+        max-height:600px;
+    }
+
+    #slider img {
+        height:600px;
+    }
+
+    .navbar {
+        height:60px;
+    }
+
+    .navbar img {
+        max-height:40px;
+    }
+
+    .socials {
+        position:relative;
+        margin-left:1200px;
+    }
+
+    .socials li {
+        display:inline-block;
+    }
+
+    .nav-item .nav-link {
+        margin-top:8px;
+    }
+
+    .navbar-toggler-icon img {
+        max-height:30px;
+    }
+
+    #maintext {
+        margin-top:25px;
+    }
+
+    footer {
+        height:50px;
+        background:#dddddd;
+        text-align:center;
+    }
+
+    footer h6 {
+        padding-top:15px;
+    }
+    `,
+    function(err){
+			if (err) throw err;
+			console.log(dir + "index.css created!");
+		}
+	);
+
+	for (j in fnames){
+		let path = dir + fnames[j];
+    let cleanContent = "<p>" + content[j].replace(/(\r\n|\n|\r)/gm, "</p>\n<p>") + "</p>";
+    console.log(cleanContent);
+		fs.appendFile(path,
+      `
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <!-- Required meta tags -->
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <!-- Bootstrap CSS -->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          <link rel="stylesheet" type="text/css" href="/static/index.css">
+          <link href="https://fonts.googleapis.com/css?family=Baskervville|Domine&display=swap" rel="stylesheet">
+          <title>` + name + ` | ` + headers[j] + `</title>
+        </head>
+        <body>
+          <nav class="navbar navbar-expand-lg navbar-primary bg-dark">
+            <a class="navbar-brand" href="/"><img src="/static/logo.png" alt="RE Logo" /></a>
+            <button class="navbar-toggler" type="button btn-primary" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
+              <span class="navbar-toggler-icon"><img src="/static/nav.png" alt="Nav Icon" /></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="postsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Blog Posts
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="postsDropdown">
+                    ` + links + `
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="externalsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    External Links
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="externalsDropdown">
+                    ` + exLinks + `
+                  </div>
+                </li>
+                <div class="socials">
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://facebook.com"><img src="/static/fb.png" alt="FB Logo" /></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://twitter.com"><img src="/static/twit.png" alt="Twitter Logo" /></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://instagram.com"><img src="/static/insta.png" alt="Instagram Logo" /></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://youtube.com"><img src="/static/yt.png" alt="YT Logo" /></a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </nav>
+          <div class="container" id="maintext">
+            <div class="row">
+              <div class="col-8">
+                <h1>` + headers[j] + `</h1>
+                <h4><!-- Blurb Goes Here --></h4>
+                ` + cleanContent + `
+                <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#capform" aria-expanded="false" aria-controls="capform">
+                    Find Out More!
+                  </button>
+                </p>
+                <div class="collapse" id="capform">
+                  <div class="card card-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Your Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+                      </div>
+                      <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
+                      </div>
+                      <div class="form-group">
+                        <label for="message">Message:</label>
+                        <input type="textarea" class="form-control" id="message" placeholder="Put your question/comment here.">
+                      </div>
+                      <button type="submit" class="btn btn-success" onClick="sendData()">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="list-group" id="rellinks">
+                  <a href="/related" target="_blank" rel="noreferrer noopener"><li class="list-group-item">Related Link 1</li></a>
+                  <a href="/related" target="_blank" rel="noreferrer noopener"><li class="list-group-item">Related Link 2</li></a>
+                  <a href="/related" target="_blank" rel="noreferrer noopener"><li class="list-group-item">Related Link 3</li></a>
+                  <a href="/related" target="_blank" rel="noreferrer noopener"><li class="list-group-item">Related Link 4</li></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer>
+            <h6>Powered by <a href="https://the1stpagegroup.com" target="_blank" rel="noreferrer noopener">The 1st Page Group</a></h6>
+          </footer>
+
+          <!-- Optional JavaScript -->
+          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+          <script src="https://smtpjs.com/v3/smtp.js"></script>
+          <script>
+            function sendData(){
+              let nameVal = document.getElementById("name").value;
+              let mailVal = document.getElementById("email").value;
+              let addVal = document.getElementById("phone").value;
+              let msgVal = document.getElementById("message").value;
+              Email.send({
+                Host: "smtp.gmail.com",
+                Username: "1stpgemail@gmail.com",
+                Password: "Yeswewill@1",
+                To: "yeswewill111@gmail.com, ` + email + `",
+                From: mailVal,
+                Subject: "Info Request from ` + newurl + `",
+                Body: "Name: " + nameVal + "   Phone: " + addVal + "    Message: " + msgVal
               }).then(
                 message => alert(message)
               );
@@ -2425,11 +1014,9 @@ app.post('/builder', (req, res) => {
   for (x in req.body.cleanTerms){
     content.push(req.body[req.body.cleanTerms[x]]);
   }
-  if(req.body.style === 'Generic MLM'){
-    genericMLM(nameMaker(req.body.terms), 'D:/CodingStuff/Sites/yeswewill/' + name + '/', req.body.company, req.body.site, req.body.emailaddress, req.body.phone, req.body.seoSite, content, req.body.terms, req.body.color);
-  } else if (req.body.style === 'Kangen'){
-    kangen(nameMaker(req.body.terms), 'D:/CodingStuff/Sites/yeswewill/' + name + '/', req.body.company, req.body.site, req.body.emailaddress, req.body.phone, req.body.seoSite, content, req.body.terms, req.body.color);
-  } else if (req.body.style === 'RE Minimalist'){
-    minRE(nameMaker(req.body.terms), 'D:/CodingStuff/Sites/yeswewill/' + name + '/', req.body.company, req.body.site, req.body.emailaddress, req.body.phone, req.body.seoSite, content, req.body.terms, req.body.color, req.body.fullname);
+  if (req.body.style === 'Sales') {
+    newStyle(nameMaker(req.body.terms), 'D:/CodingStuff/Sites/yeswewill/customers/' + name + '/', req.body.company, req.body.site, req.body.emailaddress, req.body.phone, req.body.seoSite, content, req.body.terms, req.body.color, req.body.fullname, req.body.externals, req.body.bio)
+  } else if (req.body.style === 'Real Estate') {
+    realEstate(nameMaker(req.body.terms), 'D:/CodingStuff/Sites/yeswewill/customers/' + name + '/', req.body. company, req.body.site, req.body.emailaddress, req.body.phone, req.body.seoSite, content, req.body.terms, req.body.color, req.body.fullname, req.body.externals, req.body.bio)
   }
 });
